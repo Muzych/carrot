@@ -5,6 +5,7 @@
 import os
 from telebot.async_telebot import AsyncTeleBot
 from dotenv import load_dotenv
+from utils.logger import logger
 
 load_dotenv()
 
@@ -32,4 +33,7 @@ async def echo_message(message):
 
 import asyncio
 
-asyncio.run(bot.polling())
+if __name__ == "__main__":
+    logger.info("萝卜机器人启动！")
+    asyncio.run(bot.polling())
+    logger.warning("萝卜机器人关闭！")
