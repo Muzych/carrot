@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:75ef04dbe6be8a72ee62a451d3ac92b05c6e5e0b88005784d906076acb057875"
+content_hash = "sha256:0a0cfee0c5832bc932e2c0f965cc722c5805a6a748a5351cce0657863181bc30"
 
 [[package]]
 name = "aiofiles"
@@ -505,6 +505,16 @@ groups = ["default"]
 files = [
     {file = "packaging-23.2-py3-none-any.whl", hash = "sha256:8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7"},
     {file = "packaging-23.2.tar.gz", hash = "sha256:048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"},
+]
+
+[[package]]
+name = "pathlib"
+version = "1.0.1"
+summary = "Object-oriented filesystem paths"
+groups = ["default"]
+files = [
+    {file = "pathlib-1.0.1-py3-none-any.whl", hash = "sha256:f35f95ab8b0f59e6d354090350b44a80a80635d22efdedfa84c7ad1cf0a74147"},
+    {file = "pathlib-1.0.1.tar.gz", hash = "sha256:6940718dfc3eff4258203ad5021090933e5c04707d5ca8cc9e73c94a7894ea9f"},
 ]
 
 [[package]]

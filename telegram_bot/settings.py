@@ -9,6 +9,7 @@ from dataclasses import dataclass
 class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: SecretStr
     REDIS_URL: Optional[str] = ""
+    LOGGING_CONFIG: Optional[str] = ""
 
     class Config:
         env_file = "../.env"

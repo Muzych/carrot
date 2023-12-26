@@ -2,20 +2,28 @@ import os
 import httpx
 import uvicorn
 from fastapi import FastAPI, Request
-from routers import webhook
 from dotenv import load_dotenv
-from loguru import logger
-
+from logger import CarrotLogger, watcher
+from settings import settings
+from pathlib import Path
 
 load_dotenv()
 
-app = FastAPI()
-app.include_router(webhook.router)
+
+def create_app() -> FastAPI:
+    app = FastAPI(debug=True)
+    config_path=Path(settings.LOGGING_CONFIG)
+    logger = CarrotLogger.make_logger(config_path)
+    app.logger = logger
+    return app
+
+
+app = create_app()
 
 
 @app.on_event("startup")
 async def on_startup():
-    logger.info("机器人启动...,开始设置webhook")
+    watcher.info("机器人启动...,开始设置webhook")
     # # await bot.set_webhook(url=WEBHOOK_URL)
 
     # # Register middlewares
@@ -36,7 +44,7 @@ async def on_startup():
 @app.on_event("shutdown")
 async def on_shutdown():
     # await bot.session.close()
-    logger.info("机器人关闭...再见！")
+    watcher.info("机器人关闭...再见！")
 
 
 if __name__ == "__main__":
