@@ -2,13 +2,18 @@ import os
 import httpx
 import uvicorn
 from fastapi import FastAPI, Request
-from dotenv import load_dotenv
 from logger import CarrotLogger, watcher
 from settings import settings
 from pathlib import Path
+from aiogram import Bot, Dispatcher, types
+from aiogram.fsm.storage.memory import MemoryStorage
 
-load_dotenv()
+from routers.start import start_router
 
+storage = MemoryStorage()
+
+WEBHOOK_PATH = f"/bot/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}"
+WEBHOOK_URL = 'https://bd73-74-48-170-175.ngrok-free.app' + WEBHOOK_PATH
 
 def create_app() -> FastAPI:
     app = FastAPI(debug=True)
@@ -19,31 +24,26 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-
+bot = Bot(token=settings.TELEGRAM_BOT_TOKEN.get_secret_value(), parse_mode="HTML")
+dp = Dispatcher(storage=storage)
 
 @app.on_event("startup")
 async def on_startup():
     watcher.info("机器人启动...,开始设置webhook")
-    # # await bot.set_webhook(url=WEBHOOK_URL)
-
-    # # Register middlewares
-    # dp.update.outer_middleware(ConfigMiddleware(config))
-
-    # # Register routes
-    # dp.include_router(start_router)
-    pass
+    await bot.set_webhook(url=WEBHOOK_URL)
+    watcher.info("webhook设置完成！")
+    dp.include_router(start_router)
 
 
-# @app.post(WEBHOOK_PATH)
-# async def bot_webhook(update: dict):
-#     # telegram_update = types.Update(**update)
-#     # await dp.feed_update(bot=bot, update=telegram_update)
-#     pass
+@app.post(WEBHOOK_PATH)
+async def bot_webhook(update: dict):
+    telegram_update = types.Update(**update)
+    await dp.feed_update(bot=bot, update=telegram_update)
 
 
 @app.on_event("shutdown")
 async def on_shutdown():
-    # await bot.session.close()
+    await bot.session.close()
     watcher.info("机器人关闭...再见！")
 
 

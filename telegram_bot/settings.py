@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: SecretStr
     REDIS_URL: Optional[str] = ""
     LOGGING_CONFIG: Optional[str] = ""
+    GEMINI_PRO_API: Optional[str] = ""
 
     class Config:
         env_file = "../.env"
