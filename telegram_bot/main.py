@@ -13,11 +13,12 @@ from routers.start import start_router
 storage = MemoryStorage()
 
 WEBHOOK_PATH = f"/bot/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}"
-WEBHOOK_URL = 'https://bd73-74-48-170-175.ngrok-free.app' + WEBHOOK_PATH
+WEBHOOK_URL = "https://bd73-74-48-170-175.ngrok-free.app" + WEBHOOK_PATH
+
 
 def create_app() -> FastAPI:
     app = FastAPI(debug=True)
-    config_path=Path(settings.LOGGING_CONFIG)
+    config_path = Path(settings.LOGGING_CONFIG)
     logger = CarrotLogger.make_logger(config_path)
     app.logger = logger
     return app
@@ -26,6 +27,7 @@ def create_app() -> FastAPI:
 app = create_app()
 bot = Bot(token=settings.TELEGRAM_BOT_TOKEN.get_secret_value(), parse_mode="HTML")
 dp = Dispatcher(storage=storage)
+
 
 @app.on_event("startup")
 async def on_startup():

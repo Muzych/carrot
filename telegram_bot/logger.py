@@ -59,8 +59,6 @@ class InterceptHandler(logging.Handler):
         log.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
 
 
-
-
 class CarrotLogger:
     @classmethod
     def make_logger(cls, config_path: Path):
@@ -106,5 +104,6 @@ class CarrotLogger:
             _logger = logging.getLogger(_log)
             _logger.handlers = [InterceptHandler()]
         return logger.bind(request_id=None, method=None)
+
 
 watcher = CarrotLogger.make_logger(config_path=Path(settings.LOGGING_CONFIG))
