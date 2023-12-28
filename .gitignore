@@ -2,3 +2,4 @@
 *.pyc
 pyproject.toml
 __pycache__/
+.pdm-python
