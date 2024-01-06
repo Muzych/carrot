@@ -9,11 +9,12 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.memory import MemoryStorage
 
 from routers.start import start_router
+from routers.dalle import dalle_router
 
 storage = MemoryStorage()
 
 WEBHOOK_PATH = f"/bot/{settings.TELEGRAM_BOT_TOKEN.get_secret_value()}"
-WEBHOOK_URL = "https://bd73-74-48-170-175.ngrok-free.app" + WEBHOOK_PATH
+WEBHOOK_URL = "https://90f1-74-48-170-175.ngrok-free.app" + WEBHOOK_PATH
 
 
 def create_app() -> FastAPI:
@@ -35,6 +36,7 @@ async def on_startup():
     await bot.set_webhook(url=WEBHOOK_URL)
     watcher.info("webhook设置完成！")
     dp.include_router(start_router)
+    dp.include_router(dalle_router)
 
 
 @app.post(WEBHOOK_PATH)
