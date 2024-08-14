@@ -18,19 +18,8 @@ compatibility_flags = ["nodejs_compat"]
 # - https://developers.cloudflare.com/workers/configuration/secrets/
 [vars]
 # MY_VARIABLE = "production_value"
-TELEGRAM_BOT_WEBGHOOK = "/endpoint"
-TELEGRAM_BOT_TOKEN = "6566733898:AAHvC5tYMl3dRzl-WrNmsdPYi81aL0nS0KY"
-TELEGRAM_BOT_INFO = """{
-    "id":6566733898,
-    "is_bot":true,
-    "first_name":"carrot",
-    "username":"carrotcarrot_bot",
-    "can_join_groups":true,
-    "can_read_all_group_messages":false,
-    "supports_inline_queries":false,
-    "can_connect_to_business":false,
-    "has_main_web_app":false
-}"""    
+TELEGRAM_BOT_TOKEN = "You Telegram Bot Token"
+TELEGRAM_BOT_INFO = "You Telegram Bot Info"    
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#workers-ai
 # [ai]
