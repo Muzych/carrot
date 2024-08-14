@@ -5,14 +5,42 @@
  * - Open a browser tab at http://localhost:8787/ to see your worker in action
  * - Run `npm run deploy` to publish your worker
  *
- * Bind resources to your worker in `wrangler.toml`. After adding bindings, a type definition for the
- * `Env` object can be regenerated with `npm run cf-typegen`.
- *
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import { Bot, Context, webhookCallback } from "grammy";
+
+export interface Env {
+  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
+  // MY_KV_NAMESPACE: KVNamespace;
+  //
+  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
+  // MY_DURABLE_OBJECT: DurableObjectNamespace;
+  //
+  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
+  // MY_BUCKET: R2Bucket;
+  //N
+  // Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
+  // MY_SERVICE: Fetcher;
+  //
+  // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
+  // MY_QUEUE: Queue;
+  TELEGRAM_BOT_INFO: string;
+  TELEGRAM_BOT_TOKEN: string;
+}
+
 export default {
-	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
-	},
-} satisfies ExportedHandler<Env>;
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<Response> {
+    const bot = new Bot(env.TELEGRAM_BOT_TOKEN, { botInfo: JSON.parse(env.TELEGRAM_BOT_INFO) });
+
+    bot.command("start", async (ctx: Context) => {
+      await ctx.reply("Hello, world!");
+    });
+
+    return webhookCallback(bot, "cloudflare-mod")(request);
+  },
+};
