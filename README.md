@@ -1,2 +1,0 @@
-# carrot
-My Telegram bot
