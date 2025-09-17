@@ -7,15 +7,22 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"db:generate": "drizzle-kit generate",
+		"db:push": "drizzle-kit push",
+		"db:studio": "drizzle-kit studio",
+		"db:migrate": "wrangler d1 migrations apply telegram --local",
+		"db:migrate:prod": "wrangler d1 migrations apply telegram"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"drizzle-kit": "^0.31.4",
 		"typescript": "^5.5.2",
 		"vitest": "~3.2.0",
-		"wrangler": "^4.36.0"
+		"wrangler": "^4.37.1"
 	},
 	"dependencies": {
+		"drizzle-orm": "^0.44.5",
 		"grammy": "^1.38.2",
 		"hono": "^4.9.7"
 	}

@@ -9,7 +9,15 @@
 	"compatibility_date": "2025-09-13",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "telegram",
+			"database_id": "cdfacffd-f5c2-47fd-bd5a-f1a2616ef9e8",
+			"migrations_dir" : "migrations"
+		}
+	]
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
