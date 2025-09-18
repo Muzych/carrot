@@ -21,10 +21,4 @@ app.post('/webhook', async (ctx) => {
 	return await handleUpdate(ctx.req.raw);
 })
 
-app.post('/debug-webhook', async (ctx) => {
-	const body = await ctx.req.json();
-	console.log('Webhook received:', JSON.stringify(body, null, 2));
-	return ctx.json({ received: true });
-});
-
 export default app;
