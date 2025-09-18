@@ -21,4 +21,12 @@ app.post('/webhook', async (ctx) => {
 	return handleUpdate(ctx.req.raw);
 })
 
+app.get('/debug', async (ctx) => {
+	const hasToken = !!ctx.env.TELEGRAM_BOT_TOKEN;
+	return ctx.json({ 
+		hasToken, 
+		tokenLength: ctx.env.TELEGRAM_BOT_TOKEN?.length || 0 
+	});
+});
+
 export default app;
