@@ -13,8 +13,8 @@ app.get('/', async (ctx) => {
 app.post('/webhook', async (ctx) => {
 	const bot = new Bot(ctx.env.TELEGRAM_BOT_TOKEN);
 
-	bot.on('message', async (ctx) => {
-		await ctx.reply('Hello! I received your message: ' + ctx.message.text);
+	bot.on('message', async (c) => {
+		await c.reply('Hello! I received your message: ' + c.message.text);
 	});
 
 	const handleUpdate = webhookCallback(bot, 'cloudflare-mod');
