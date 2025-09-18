@@ -4,7 +4,7 @@ import type { Env } from "./core/types";
 import { createDB } from "./core/db";
 import { telegramUserTable } from "./core/schema";
 import { eq } from "drizzle-orm";
-import { waitUntil } from "cloudflare:workers";
+
 
 
 const app = new Hono<{Bindings: Env}>();
@@ -15,7 +15,7 @@ app.get('/', async (c) => {
 })
 
 const createBot = (token: string, env: Env) => {
-	const bot = new Bot(token);
+	const bot = new Bot(token, {botInfo:{"id":6566733898,"is_bot":true,"first_name":"carrot","username":"carrotcarrot_bot","can_join_groups":true,"can_read_all_group_messages":false,"supports_inline_queries":false,"can_connect_to_business":false,"has_main_web_app":false}});
 	bot.command('start', (ctx) => ctx.reply('Hi!'));
 	bot.on('message', (ctx) => ctx.reply('pong'));
 
