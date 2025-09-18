@@ -18,15 +18,13 @@ app.post('/webhook', async (ctx) => {
 	});
 
 	const handleUpdate = webhookCallback(bot, 'cloudflare-mod');
-	return handleUpdate(ctx.req.raw);
+	return await handleUpdate(ctx.req.raw);
 })
 
-app.get('/debug', async (ctx) => {
-	const hasToken = !!ctx.env.TELEGRAM_BOT_TOKEN;
-	return ctx.json({ 
-		hasToken, 
-		tokenLength: ctx.env.TELEGRAM_BOT_TOKEN?.length || 0 
-	});
+app.post('/debug-webhook', async (ctx) => {
+	const body = await ctx.req.json();
+	console.log('Webhook received:', JSON.stringify(body, null, 2));
+	return ctx.json({ received: true });
 });
 
 export default app;
