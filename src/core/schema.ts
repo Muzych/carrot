@@ -14,6 +14,14 @@ export const postTable = sqliteTable('post_table', {
   userId: int().references(() => userTable.id),
 });
 
+export const telegramUserTable = sqliteTable('telegram_users', {
+  id: int().primaryKey({ autoIncrement: true }),
+  telegramId: text('telegram_id').notNull().unique(),
+  username: text('username'),
+  firstName: text('first_name').notNull(),
+  createdAt: int('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+});
+
 export const userRelations = relations(userTable, ({ many }) => ({
   posts: many(postTable),
 }));
